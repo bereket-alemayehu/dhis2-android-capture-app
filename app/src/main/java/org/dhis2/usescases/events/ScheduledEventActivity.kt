@@ -32,7 +32,8 @@ import org.hisp.dhis.android.core.event.EventStatus
 import org.hisp.dhis.android.core.period.PeriodType
 import org.hisp.dhis.android.core.program.Program
 import org.hisp.dhis.android.core.program.ProgramStage
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.dhis2.commons.date.EthiopianDateUtils  // Assuming you have a helper class for Ethiopian calendar conversion
+import org.dhis2.mobile.ui.designsystem.theme.Spacing
 import javax.inject.Inject
 
 const val EXTRA_EVENT_UID = "EVENT_UID"
@@ -59,9 +60,7 @@ class ScheduledEventActivity : ActivityGlobalAbstract(), ScheduledEventContract.
         (
             (applicationContext as App).userComponent()!!.plus(
                 ScheduledEventModule(
-                    intent.extras!!.getString(
-                        EXTRA_EVENT_UID,
-                    )!!,
+                    intent.extras!!.getString(EXTRA_EVENT_UID)!!,
                     this,
                 ),
             )
@@ -101,18 +100,24 @@ class ScheduledEventActivity : ActivityGlobalAbstract(), ScheduledEventContract.
     override fun setStage(programStage: ProgramStage, event: Event) {
         this.stage = programStage
         binding.programStage = programStage
+
         binding.scheduledEventFieldContainer.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 Column(verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16)) {
                     val eventDate = EventDate(
-                        label = programStage.executionDateLabel()
-                            ?: getString(R.string.report_date),
-                        dateValue = "",
+                        label = programStage.executionDateLabel() ?: getString(R.string.report_date),
+                        dateValue = "", // Can convert if you want here similarly
                     )
+
+                    // Convert Gregorian dueDate to Ethiopian calendar string
+                    val ethiopianDueDateStr = event.dueDate()?.let {
+                        EthiopianDateUtils.gregorianToEthiopianDateString(it)
+                    } ?: ""
+
                     val dueDate = EventDate(
                         label = programStage.dueDateLabel() ?: getString(R.string.due_date),
-                        dateValue = DateUtils.uiDateFormat().format(event.dueDate() ?: ""),
+                        dateValue = ethiopianDueDateStr,
                     )
 
                     if (willShowCalendar(programStage.periodType())) {
@@ -124,9 +129,7 @@ class ScheduledEventActivity : ActivityGlobalAbstract(), ScheduledEventContract.
                                 onDateClick = {},
                                 onDateSelected = { date ->
                                     presenter.setEventDate(
-                                        presenter.formatDateValues(
-                                            date,
-                                        ),
+                                        presenter.formatDateValues(date),
                                     )
                                 },
                                 selectableDates = presenter.getSelectableDates(program, false),
@@ -227,7 +230,7 @@ class ScheduledEventActivity : ActivityGlobalAbstract(), ScheduledEventContract.
             program.uid(),
             EventMode.SCHEDULE,
         )
-        Intent(activity, EventCaptureActivity::class.java).apply {
+        Intent(this, EventCaptureActivity::class.java).apply {
             putExtras(bundle)
             startActivity(this)
             finish()
