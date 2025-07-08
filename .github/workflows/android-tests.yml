@@ -30,4 +30,5 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Run Ethiopian Calendar Tests only
-        run: ./gradlew commons:test --tests "org.dhis2.commons.date.DateUtilsEthiopianTest"
+        run: ./gradlew commons:testDebugUnitTest --tests "org.dhis2.commons.date.DateUtilsEthiopianTest"
+
