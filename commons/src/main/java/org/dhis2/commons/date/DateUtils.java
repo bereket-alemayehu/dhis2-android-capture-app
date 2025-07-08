@@ -783,20 +783,9 @@ public class DateUtils {
                 && Calendar.getInstance().getTime().getTime() < dataInputPeriodModel.closingDate().getTime();
     }
 
-      public static String convertGregorianToEthiopian(Date gregDate) {
-        LocalDate gregorian = gregDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        int ethYear = gregorian.getYear() - 8;
-        int ethMonth = gregorian.getMonthValue();
-        int ethDay = gregorian.getDayOfMonth();
-        return String.format("%04d-%02d-%02d", ethYear, ethMonth, ethDay);
-    }
-
+      
     
-    public static Date convertEthiopianToGregorian(int ethYear, int ethMonth, int ethDay) {
-        int gregYear = ethYear + 8;
-        LocalDate gregorian = LocalDate.of(gregYear, ethMonth, ethDay);
-        return Date.from(gregorian.atStartOfDay(ZoneId.systemDefault()).toInstant());
-    }  public static String convertGregorianToEthiopian(Date gregDate) {
+   public static String convertGregorianToEthiopian(Date gregDate) {
         LocalDate gregorian = gregDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int ethYear = gregorian.getYear() - 8;
         int ethMonth = gregorian.getMonthValue();
