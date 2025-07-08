@@ -21,7 +21,6 @@ import org.dhis2.commons.dialogs.bottomsheet.BottomSheetDialogUiModel
 import org.dhis2.commons.periods.ui.PeriodSelectorContent
 import org.dhis2.databinding.ActivityEventScheduledBinding
 import org.dhis2.form.model.EventMode
-import org.dhis2.mobile.ui.designsystem.theme.Spacing
 import org.dhis2.usescases.eventsWithoutRegistration.eventCapture.EventCaptureActivity
 import org.dhis2.usescases.eventsWithoutRegistration.eventDetails.models.EventDate
 import org.dhis2.usescases.eventsWithoutRegistration.eventDetails.models.EventInputDateUiModel
@@ -35,7 +34,6 @@ import org.hisp.dhis.android.core.period.PeriodType
 import org.hisp.dhis.android.core.program.Program
 import org.hisp.dhis.android.core.program.ProgramStage
 import javax.inject.Inject
-
 
 const val EXTRA_EVENT_UID = "EVENT_UID"
 
@@ -105,7 +103,7 @@ class ScheduledEventActivity : ActivityGlobalAbstract(), ScheduledEventContract.
         binding.scheduledEventFieldContainer.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                Column(verticalArrangement = Arrangement.spacedBy(Spacing.dp16)) {
+                Column(verticalArrangement = Arrangement.spacedBy(16.dp)) { // Replaced Spacing.dp16
                     val eventDate = EventDate(
                         label = programStage.executionDateLabel() ?: getString(R.string.report_date),
                         dateValue = "",
