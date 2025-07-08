@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.unit.dp
 import androidx.databinding.DataBindingUtil
 import androidx.paging.compose.collectAsLazyPagingItems
 import org.dhis2.App
@@ -34,6 +35,7 @@ import org.hisp.dhis.android.core.period.PeriodType
 import org.hisp.dhis.android.core.program.Program
 import org.hisp.dhis.android.core.program.ProgramStage
 import javax.inject.Inject
+
 
 const val EXTRA_EVENT_UID = "EVENT_UID"
 
