@@ -116,15 +116,16 @@ class ScheduledEventPresenterImpl(
         } else {
             null
         }
-        val minDateString =
-            if (minDate == null) null else SimpleDateFormat("ddMMyyyy", Locale.US).format(minDate)
+        val minDateString = minDate?.let {
+            // Convert Gregorian minDate to Ethiopian date string
+            DateUtils.convertGregorianToEthiopian(it)
+        }
+
         val maxDateString = if (isDueDate) {
             DEFAULT_MAX_DATE
         } else {
-            SimpleDateFormat(
-                "ddMMyyyy",
-                Locale.US,
-            ).format(Date(System.currentTimeMillis() - 1000))
+            // Convert max date (current date - 1s) to Ethiopian date string
+            DateUtils.convertGregorianToEthiopian(Date(System.currentTimeMillis() - 1000))
         }
         return SelectableDates(minDateString ?: DEFAULT_MIN_DATE, maxDateString)
     }
