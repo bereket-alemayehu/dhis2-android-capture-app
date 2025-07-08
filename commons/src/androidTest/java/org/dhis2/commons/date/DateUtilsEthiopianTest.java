@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 public class DateUtilsEthiopianTest {
 
+    // ✅ This is a non-functional comment to trigger GitHub Actions workflow
     @Test
     public void testGregorianToEthiopian() {
         LocalDate localDate = LocalDate.of(2025, 7, 7);
