@@ -32,10 +32,11 @@ import org.hisp.dhis.android.core.event.EventStatus
 import org.hisp.dhis.android.core.period.PeriodType
 import org.hisp.dhis.android.core.program.Program
 import org.hisp.dhis.android.core.program.ProgramStage
-import org.dhis2.commons.date.EthiopianDateUtils  // Assuming you have a helper class for Ethiopian calendar conversion
+import org.dhis2.commons.date.DateUtils
 import org.dhis2.mobile.ui.designsystem.theme.Spacing
 import javax.inject.Inject
 
+DateUtils.convertGregorianToEthiopian(date)
 const val EXTRA_EVENT_UID = "EVENT_UID"
 
 class ScheduledEventActivity : ActivityGlobalAbstract(), ScheduledEventContract.View {
