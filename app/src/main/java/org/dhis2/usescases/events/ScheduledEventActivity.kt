@@ -32,7 +32,6 @@ import org.hisp.dhis.android.core.event.EventStatus
 import org.hisp.dhis.android.core.period.PeriodType
 import org.hisp.dhis.android.core.program.Program
 import org.hisp.dhis.android.core.program.ProgramStage
-import org.dhis2.commons.date.DateUtils
 import org.dhis2.mobile.ui.designsystem.theme.Spacing
 import javax.inject.Inject
 const val EXTRA_EVENT_UID = "EVENT_UID"
