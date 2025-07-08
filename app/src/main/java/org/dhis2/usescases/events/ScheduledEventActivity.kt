@@ -35,8 +35,6 @@ import org.hisp.dhis.android.core.program.ProgramStage
 import org.dhis2.commons.date.DateUtils
 import org.dhis2.mobile.ui.designsystem.theme.Spacing
 import javax.inject.Inject
-
-DateUtils.convertGregorianToEthiopian(date)
 const val EXTRA_EVENT_UID = "EVENT_UID"
 
 class ScheduledEventActivity : ActivityGlobalAbstract(), ScheduledEventContract.View {
