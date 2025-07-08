@@ -113,7 +113,7 @@ class ScheduledEventActivity : ActivityGlobalAbstract(), ScheduledEventContract.
 
                     // Convert Gregorian dueDate to Ethiopian calendar string
                     val ethiopianDueDateStr = event.dueDate()?.let {
-                        EthiopianDateUtils.gregorianToEthiopianDateString(it)
+                       DateUtils.convertGregorianToEthiopian(it)
                     } ?: ""
 
                     val dueDate = EventDate(
