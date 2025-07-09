@@ -5,15 +5,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dialFabLayout"
-        android:background="@drawable/ic_front_home_backdrop_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_front_home_backdrop_bg">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -21,6 +21,7 @@
                 android:orientation="vertical"
                 android:padding="5dp">
 
+                <!-- Icon tester title -->
                 <TextView
                     style="@style/TextPrimary"
                     android:layout_width="match_parent"
@@ -30,13 +31,14 @@
                     android:text="Icon tester"
                     android:textColor="@color/colorAccent" />
 
-
+                <!-- Icon input -->
                 <EditText
                     android:id="@+id/iconInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Icon name" />
 
+                <!-- Icon images -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -63,6 +65,7 @@
                         tools:src="@drawable/ic_female_and_male_positive" />
                 </LinearLayout>
 
+                <!-- Icon tint preview -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -93,6 +96,7 @@
                         tools:src="@drawable/ic_female_and_male_positive" />
                 </LinearLayout>
 
+                <!-- Next Icon button -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -105,12 +109,14 @@
                         app:srcCompat="@drawable/ic_keyboard_arrow_right" />
                 </LinearLayout>
 
+                <!-- Auto check switch -->
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/automaticErrorCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Automatic error search" />
 
+                <!-- Crash Button Section -->
                 <TextView
                     style="@style/TextPrimary"
                     android:layout_width="match_parent"
@@ -128,6 +134,7 @@
                     android:layout_gravity="end"
                     android:text="Boom!" />
 
+                <!-- Feature Config -->
                 <TextView
                     style="@style/TextPrimary"
                     android:layout_width="match_parent"
@@ -145,6 +152,7 @@
                     android:layout_gravity="end"
                     android:text="Features list" />
 
+                <!-- Conflicts -->
                 <TextView
                     style="@style/TextPrimary"
                     android:layout_width="match_parent"
@@ -170,6 +178,7 @@
                     android:layout_gravity="end"
                     android:text="Clear conflicts" />
 
+                <!-- UI Components -->
                 <TextView
                     style="@style/TextPrimary"
                     android:layout_width="match_parent"
@@ -187,7 +196,7 @@
                     android:layout_gravity="end"
                     android:text="UI Components" />
 
-
+                <!-- MultiText -->
                 <TextView
                     style="@style/TextPrimary"
                     android:layout_width="match_parent"
@@ -212,6 +221,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:text="UPDATE" />
+
+                <!-- Custom Icons -->
                 <TextView
                     style="@style/TextPrimary"
                     android:layout_width="match_parent"
@@ -236,6 +247,25 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:text="Run" />
+
+                <!-- ✅ Ethiopian Calendar Section -->
+                <TextView
+                    style="@style/TextPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/primaryAlpha"
+                    android:text="Ethiopian Calendar"
+                    android:textColor="@color/colorAccent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/testEthiopianCalendarButton"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="Test Ethiopian Calendar" />
+
             </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
