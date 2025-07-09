@@ -1,6 +1,7 @@
 package org.dhis2.usescases.development;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -45,6 +46,15 @@ public class DevelopmentActivity extends ActivityGlobalAbstract {
         loadConflicts();
         loadMultiText();
         loadCustomIcons();
+        initEthiopianCalendarButton();
+    }
+
+    private void initEthiopianCalendarButton() {
+        Button testEthiopianCalendarButton = findViewById(R.id.testEthiopianCalendarButton);
+        testEthiopianCalendarButton.setOnClickListener(view -> {
+            // TODO: Implement Ethiopian calendar test logic
+            Toast.makeText(this, "Ethiopian Calendar button clicked", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void loadCustomIcons() {
