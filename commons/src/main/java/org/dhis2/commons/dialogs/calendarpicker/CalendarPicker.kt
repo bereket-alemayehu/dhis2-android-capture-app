@@ -1,20 +1,14 @@
 package org.dhis2.commons.dialogs.calendarpicker
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Build
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.DatePicker
 import android.widget.LinearLayout
 import androidx.databinding.BindingAdapter
-import org.dhis2.commons.R
-import org.dhis2.commons.databinding.CalendarPickerViewBinding
 import org.dhis2.commons.dialogs.calendarpicker.di.CalendarPickerComponentProvider
-import java.util.Calendar
-import java.util.Date
 import javax.inject.Inject
+import org.dhis2.commons.calendar.EthiopianDatePicker
 
 class CalendarPicker(
     context: Context,
@@ -25,6 +19,29 @@ class CalendarPicker(
 
     private var listener: OnDatePickerListener? = null
 
+    init {
+        (context.applicationContext as CalendarPickerComponentProvider)
+            .provideCalendarPickerComponent()?.inject(this)
+    }
+
+    fun setListener(listener: OnDatePickerListener) {
+        this.listener = listener
+    }
+
+    override fun show() {
+        if (listener == null) {
+            throw IllegalArgumentException("Listener must be set up")
+        }
+
+        // ✅ Launch only the Ethiopian calendar dialog
+        EthiopianDatePicker(context) { date ->
+            listener?.onPositiveClick(date.year, date.month, date.day)
+        }.show()
+    }
+
+    // --- 🔽 Legacy Gregorian Code (NO LONGER USED) - Commented for safety ---
+
+    /*
     private val binding: CalendarPickerViewBinding =
         CalendarPickerViewBinding.inflate(LayoutInflater.from(context))
     private val calendar: Calendar = Calendar.getInstance()
@@ -38,11 +55,6 @@ class CalendarPicker(
     private var isFutureDatesAllowed: Boolean = false
     private var isFromOtherPeriods: Boolean = false
     private var scheduleInterval: Int? = null
-
-    init {
-        (context.applicationContext as CalendarPickerComponentProvider)
-            .provideCalendarPickerComponent()?.inject(this)
-    }
 
     fun setInitialDate(date: Date?) {
         initialDate = date
@@ -71,19 +83,6 @@ class CalendarPicker(
     fun setTitle(title: String?) {
         this.title = title
     }
-
-    fun setListener(listener: OnDatePickerListener) {
-        this.listener = listener
-    }
-
-  override fun show() {
-    if (listener == null) {
-        throw IllegalArgumentException("Listener must be set up")
-    }
-    EthiopianDatePicker(context) { date ->
-        listener?.onPositiveClick(date.year, date.month, date.day)
-    }.show()
-}
 
     private fun dialogBuilder(): AlertDialog.Builder {
         val builder = AlertDialog.Builder(context, R.style.DatePickerTheme)
@@ -147,11 +146,7 @@ class CalendarPicker(
             calendarPicker.maxDate = it.time
         }
     }
+    */
 }
 
-@BindingAdapter("versionCustomVisibility")
-fun setCustomVisibility(linearLayout: LinearLayout, check: Boolean) {
-    if (check && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-        linearLayout.visibility = View.GONE
-    }
-}
+
