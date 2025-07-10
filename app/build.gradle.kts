@@ -12,7 +12,6 @@ plugins {
     id("kotlin-parcelize")
     alias(libs.plugins.kotlin.serialization)
     id("dagger.hilt.android.plugin")
-    alias(libs.plugins.kotlin.compose.compiler)
 }
 apply(from = "${project.rootDir}/jacoco/jacoco.gradle.kts")
 
