@@ -163,23 +163,10 @@ class SchedulingDialog : BottomSheetDialogFragment() {
     }
 
     private fun showCalendarDialog() {
-        val dialog = CalendarPicker(requireContext())
-        dialog.setInitialDate(viewModel.eventDate.value.currentDate)
-        dialog.setMinDate(viewModel.eventDate.value.minDate)
-        dialog.setMaxDate(viewModel.eventDate.value.maxDate)
-        dialog.isFutureDatesAllowed(viewModel.eventDate.value.allowFutureDates)
-        dialog.setListener(
-            object : OnDatePickerListener {
-                override fun onNegativeClick() {
-                    // Unused
-                }
-
-               override fun onPositiveClick(year: Int, month: Int, day: Int) {
-    viewModel.onDateSet(year, month, day)
-}
-            },
-        )
-        dialog.show()
+           val ethiopianPicker = EthiopianDatePicker(requireContext()) { year, month, day ->
+        viewModel.onDateSet(year, month, day)
+    }
+    ethiopianPicker.show()
     }
 
     private fun showPeriodDialog(periodType: PeriodType) {
