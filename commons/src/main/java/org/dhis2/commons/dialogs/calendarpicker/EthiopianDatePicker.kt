@@ -1,10 +1,10 @@
 package org.dhis2.commons.dialogs.calendarpicker
 
+import org.dhis2.commons.calendar.EthiopianDate
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.NumberPicker
-import org.dhis2.commons.calendar.EthiopianDate
 import org.dhis2.commons.R
 
 class EthiopianDatePicker(
