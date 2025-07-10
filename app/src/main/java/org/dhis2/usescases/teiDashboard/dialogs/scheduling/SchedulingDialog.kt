@@ -166,9 +166,13 @@ class SchedulingDialog : BottomSheetDialogFragment() {
     }
 
     private fun showCalendarDialog() {
-           val ethiopianPicker = EthiopianDatePicker(requireContext()) { year, month, day ->
-        viewModel.onDateSet(year, month, day)
-    }
+           val ethiopianPicker = EthiopianDatePicker(requireContext()) { ethiopianDate ->
+    viewModel.onDateSet(
+        ethiopianDate.year,
+        ethiopianDate.month,
+        ethiopianDate.day
+    )
+}
     ethiopianPicker.show()
     }
 
