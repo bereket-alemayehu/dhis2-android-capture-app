@@ -80,8 +80,8 @@ class CalendarPicker(
     if (listener == null) {
         throw IllegalArgumentException("Listener must be set up")
     }
-    EthiopianDatePicker(context) { year, month, day ->
-        listener?.onPositiveClick(year, month, day)
+    EthiopianDatePicker(context) { date ->
+        listener?.onPositiveClick(date.year, date.month, date.day)
     }.show()
 }
 
