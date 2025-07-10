@@ -1,30 +1,20 @@
-package com.example.ethiopiantest.calendar;
+package org.dhis2.commons.calendar
 
-public class EthiopianDate {
-    public int year;
-    public int month;
-    public int day;
-
-    private static final String[] MONTH_NAMES = {
+data class EthiopianDate(
+    val year: Int,
+    val month: Int,
+    val day: Int
+) {
+    private val monthNames = arrayOf(
         "Meskerem", "Tikimt", "Hidar", "Tahsas", "Tir", "Yekatit",
         "Megabit", "Miyazya", "Ginbot", "Sene", "Hamle", "Nehase", "Pagumen"
-    };
+    )
 
-    public EthiopianDate(int year, int month, int day) {
-        this.year = year;
-        this.month = month;
-        this.day = day;
+    fun getMonthName(): String {
+        return if (month in 1..13) monthNames[month - 1] else "Invalid"
     }
 
-    public String getMonthName() {
-        if (month >= 1 && month <= 13) {
-            return MONTH_NAMES[month - 1];
-        }
-        return "Invalid";
-    }
-
-    @Override
-    public String toString() {
-        return day + " " + getMonthName() + " " + year;
+    override fun toString(): String {
+        return "$day ${getMonthName()} $year"
     }
 }
