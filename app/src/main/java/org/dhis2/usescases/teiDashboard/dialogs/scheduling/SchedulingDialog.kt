@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
 import org.dhis2.commons.dialogs.calendarpicker.EthiopianDatePicker
-
-
+import org.dhis2.commons.dialogs.calendarpicker.CalendarPicker
+import org.dhis2.commons.dialogs.calendarpicker.OnDatePickerListener
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
@@ -26,8 +26,7 @@ import org.dhis2.commons.date.toUiStringResource
 import org.dhis2.commons.dialogs.AlertBottomDialog
 import org.dhis2.commons.dialogs.bottomsheet.BottomSheetDialog
 import org.dhis2.commons.dialogs.bottomsheet.BottomSheetDialogUiModel
-import org.dhis2.commons.dialogs.calendarpicker.CalendarPicker
-import org.dhis2.commons.dialogs.calendarpicker.OnDatePickerListener
+
 import org.dhis2.commons.periods.ui.PeriodSelectorContent
 import org.dhis2.form.R
 import org.dhis2.form.model.EventMode

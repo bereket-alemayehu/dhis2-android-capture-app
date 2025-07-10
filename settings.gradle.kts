@@ -8,6 +8,14 @@ include(":dhis2-mobile-program-rules")
 include(":tracker")
 include(":aggregates")
 include(":commonskmm")
+pluginManagement {
+    repositories {
+        gradlePluginPortal() 
+        google()
+        mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    }
+}
 dependencyResolutionManagement {
     repositories {
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
