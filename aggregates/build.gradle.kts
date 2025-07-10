@@ -11,11 +11,13 @@ repositories{
 }
 
 kotlin {
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
+        androidTarget()
+    sourceSets {
+        val androidMain by getting
+        val androidUnitTest by getting
+
+        androidUnitTest.dependencies {
+            // your test dependencies here
         }
     }
 
