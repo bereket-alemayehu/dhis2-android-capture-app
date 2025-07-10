@@ -1,6 +1,5 @@
 plugins {
     kotlin("multiplatform")
-    alias(libs.plugins.compose)
     id("com.android.library")
 }
 
@@ -14,11 +13,8 @@ kotlin {
         androidTarget()
     sourceSets {
         val androidMain by getting
+        val androidTest by getting
         val androidUnitTest by getting
-
-        androidUnitTest.dependencies {
-            // your test dependencies here
-        }
     }
 
     jvm("desktop")
