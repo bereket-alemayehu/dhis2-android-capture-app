@@ -76,40 +76,14 @@ class CalendarPicker(
         this.listener = listener
     }
 
-    override fun show() {
-        if (listener == null) {
-            throw IllegalArgumentException("Listener must be set up")
-        }
-        setCalendar()
-        datePickerVisibility(repository.isDatePickerStyle())
-        setFuturesDates()
-        setMinDates()
-        setMaxDates()
-
-        val dialog = dialogBuilder().create()
-
-        binding.changeCalendarBtn.setOnClickListener {
-            repository.setPickerStyle(repository.isDatePickerStyle())
-            datePickerVisibility(repository.isDatePickerStyle())
-        }
-
-        binding.clearBtn.setOnClickListener {
-            listener?.onNegativeClick()
-            dialog.dismiss()
-        }
-
-        binding.acceptBtn.setOnClickListener {
-            listener?.onPositiveClick(
-                if (datePicker.visibility == View.VISIBLE) {
-                    datePicker
-                } else {
-                    calendarPicker
-                },
-            )
-            dialog.dismiss()
-        }
-        dialog.show()
+  override fun show() {
+    if (listener == null) {
+        throw IllegalArgumentException("Listener must be set up")
     }
+    EthiopianDatePicker(context) { year, month, day ->
+        listener?.onPositiveClick(year, month, day)
+    }.show()
+}
 
     private fun dialogBuilder(): AlertDialog.Builder {
         val builder = AlertDialog.Builder(context, R.style.DatePickerTheme)
