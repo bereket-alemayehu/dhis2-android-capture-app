@@ -81,7 +81,7 @@ public class TeiProgramListInteractor implements TeiProgramListContract.Interact
             }
 
             @Override
-            public void onPositiveClick(@NotNull DatePicker datePicker) {
+            public void onPositiveClick(int year, int month, int day){
                 Calendar selectedCalendar = Calendar.getInstance();
                 selectedCalendar.set(Calendar.YEAR, datePicker.getYear());
                 selectedCalendar.set(Calendar.MONTH, datePicker.getMonth());
