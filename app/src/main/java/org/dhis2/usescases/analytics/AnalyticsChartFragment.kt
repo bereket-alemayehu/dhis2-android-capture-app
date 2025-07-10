@@ -1,3 +1,5 @@
+
+/*
 class AnalyticsChartFragment : Fragment() {
 
     private val dhis2BaseUrl = "http://pfizer.dhis.et/"
@@ -52,3 +54,4 @@ class AnalyticsChartFragment : Fragment() {
 
    
 }
+*/
