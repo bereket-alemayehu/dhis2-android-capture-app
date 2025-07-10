@@ -83,9 +83,9 @@ public class TeiProgramListInteractor implements TeiProgramListContract.Interact
             @Override
             public void onPositiveClick(int year, int month, int day){
                 Calendar selectedCalendar = Calendar.getInstance();
-                selectedCalendar.set(Calendar.YEAR, datePicker.getYear());
-                selectedCalendar.set(Calendar.MONTH, datePicker.getMonth());
-                selectedCalendar.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+                selectedCalendar.set(Calendar.YEAR, year);
+                selectedCalendar.set(Calendar.MONTH, month);
+                selectedCalendar.set(Calendar.DAY_OF_MONTH, day);
                 selectedCalendar.set(Calendar.HOUR_OF_DAY, 0);
                 selectedCalendar.set(Calendar.MINUTE, 0);
                 selectedCalendar.set(Calendar.SECOND, 0);
