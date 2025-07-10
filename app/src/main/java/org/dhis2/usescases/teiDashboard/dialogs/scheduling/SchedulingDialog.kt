@@ -174,13 +174,9 @@ class SchedulingDialog : BottomSheetDialogFragment() {
                     // Unused
                 }
 
-                override fun onPositiveClick(year: Int, month: Int, day: Int) {
-                    viewModel.onDateSet(
-                        datePicker.year,
-                        datePicker.month,
-                        datePicker.dayOfMonth,
-                    )
-                }
+               override fun onPositiveClick(year: Int, month: Int, day: Int) {
+    viewModel.onDateSet(year, month, day)
+}
             },
         )
         dialog.show()
