@@ -1,4 +1,5 @@
 plugins {
+    alias(libs.plugins.compose)
     kotlin("multiplatform")
     id("com.android.library")
 }
@@ -10,7 +11,7 @@ repositories{
 }
 
 kotlin {
-        androidTarget()
+    androidTarget()
     sourceSets {
         val androidMain by getting
         val androidTest by getting
