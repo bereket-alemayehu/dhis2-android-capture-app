@@ -6,6 +6,7 @@ vCode = "143"
 vName = "3.2.0"
 gradle = "8.8.0"
 kotlin = "2.0.21"
+ksp = "2.0.21-1.0.22"
 hilt = '2.47'
 jacoco = '0.8.10'
 designSystem = "0.5.0"
@@ -26,7 +27,7 @@ fragmentktx = "1.6.1"
 dynamicanimation = "1.0.0"
 viewpager2 = "1.0.0"
 recyclerview = "1.3.1"
-compose = "1.5.4"
+compose = "1.6.0"
 composePlugin = "1.7.3"
 composePaging = "3.3.0"
 composeLifecycle = "2.8.1"
@@ -231,7 +232,9 @@ atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu"
 ktxml = { module = "org.kobjects.ktxml:core", version.ref = "ktxml" }
 [plugins]
 kotlin-serialization = { id = "kotlinx-serialization" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 compose = { id = "org.jetbrains.compose", version.ref = "composePlugin" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 [bundles]
 uicomponents-implementation = ["androidx-coreKtx", "androidx-material3", "androidx-material3-window",  "androidx-material3-adaptative-android", "google-material", "lottie-compose", "dhis2-mobile-designsystem"]
 uicomponents-api = ["dhis2-mobile-designsystem", "androidx-compose-constraintlayout", "androidx-compose-preview", "androidx-compose-ui", "google-material3-themeadapter"]

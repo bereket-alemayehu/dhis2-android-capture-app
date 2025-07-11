@@ -2,9 +2,10 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.library")
+    id("com.google.devtools.ksp")
     kotlin("android")
     kotlin("kapt")
-    alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlin.serialization)
 }
 apply(from = "${project.rootDir}/jacoco/jacoco.gradle.kts")

@@ -4,7 +4,7 @@ plugins {
     id("com.android.library")
     kotlin("android")
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.composeCompiler)
 }
 apply(from = "${project.rootDir}/jacoco/jacoco.gradle.kts")
 

@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("com.android.library")
     kotlin("android")
-    alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.composeCompiler)
 }
 
 android {

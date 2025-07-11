@@ -6,7 +6,7 @@ plugins {
     kotlin("multiplatform")
     alias(libs.plugins.compose)
     id("com.android.library")
-    alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.composeCompiler)
     id("org.jetbrains.kotlinx.atomicfu") version "0.27.0"
 }
 

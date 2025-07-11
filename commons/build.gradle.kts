@@ -4,8 +4,10 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
+    id("com.google.devtools.ksp")
     id("kotlin-parcelize")
-    alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.composeCompiler)
+
 }
 
 apply(from = "${project.rootDir}/jacoco/jacoco.gradle.kts")

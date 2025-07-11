@@ -7,11 +7,13 @@ import java.util.Date
 
 plugins {
     id("com.android.application")
+    id("com.google.devtools.ksp")
     kotlin("android")
     kotlin("kapt")
     id("kotlin-parcelize")
     alias(libs.plugins.kotlin.serialization)
     id("dagger.hilt.android.plugin")
+    alias(libs.plugins.composeCompiler)
 }
 apply(from = "${project.rootDir}/jacoco/jacoco.gradle.kts")
 
