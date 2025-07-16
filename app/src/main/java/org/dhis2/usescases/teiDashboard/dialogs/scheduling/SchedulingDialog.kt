@@ -1,5 +1,6 @@
 package org.dhis2.usescases.teiDashboard.dialogs.scheduling
 import java.util.Calendar
+import com.mkb.ethiopian.lib.models.OnSelectListener
 import android.content.Context
 import org.dhis2.ui.calendar.EthiopianDatePicker
 import android.content.Intent
@@ -160,14 +161,16 @@ class SchedulingDialog : BottomSheetDialogFragment() {
                     onDismiss = { dismiss() },
                 )
             }
-            
+
         }
     }
 
    private fun showCalendarDialog() {
-    EthiopianDatePicker.show(childFragmentManager, requireContext()) { selectedMillis ->
+     EthiopianDatePicker.show(childFragmentManager, requireContext(), object : OnSelectListener {
+    override fun onDateSelect(selectedDate: EthiopianDate) {
         val calendar = Calendar.getInstance().apply {
-            timeInMillis = selectedMillis
+            // convert EthiopianDate to millis or Date as needed
+            timeInMillis = selectedDate.toMillis() // example method; replace with actual
         }
 
         viewModel.onDateSet(
@@ -176,6 +179,7 @@ class SchedulingDialog : BottomSheetDialogFragment() {
             calendar.get(Calendar.DAY_OF_MONTH),
         )
     }
+})
 }
 
 
