@@ -4,7 +4,6 @@ import java.util.Locale
 buildscript {
     repositories {
         maven { url = uri("https://central.sonatype.com/repository/maven-snapshots") }
-        maven { url = uri("https://jitpack.io") }
         google()
     }
     dependencies {
@@ -62,16 +61,7 @@ allprojects {
         }
     }
 
-    repositories {
-        maven { url = uri("https://central.sonatype.com/repository/maven-snapshots") }
-        google()
-        mavenCentral()
-        maven {
-            url = uri("https://maven.google.com")
-        }
-        maven { url = uri("https://jitpack.io") }
-        mavenLocal()
-    }
+    
 
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
