@@ -10,7 +10,7 @@ import java.text.DateFormat
 import java.util.Calendar
 
 object EthiopianDatePicker {
-    fun show(fragmentManager: FragmentManager, context: Context, onDateSelected: (Long) -> Unit) {
+   fun show(fragmentManager: FragmentManager, context: Context, onDateSelected: (Long) -> Unit) {
         val calendarPickerFragment = CalenderPickerFragment.newInstance(
             openAt = Calendar.getInstance().timeInMillis,
             minDate = Calendar.getInstance().apply { add(Calendar.YEAR, -10) }.timeInMillis,

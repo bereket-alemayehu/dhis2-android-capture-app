@@ -165,22 +165,22 @@ class SchedulingDialog : BottomSheetDialogFragment() {
         }
     }
 
-   private fun showCalendarDialog() {
-     EthiopianDatePicker.show(childFragmentManager, requireContext(), object : OnSelectListener {
-    override fun onDateSelect(selectedDate: EthiopianDate) {
-        val calendar = Calendar.getInstance().apply {
-            // convert EthiopianDate to millis or Date as needed
-            timeInMillis = selectedDate.toMillis() // example method; replace with actual
+ private fun showCalendarDialog() {
+    EthiopianDatePicker.show(childFragmentManager, requireContext()) { selectedMillis: Long ->
+        val calendar = java.util.Calendar.getInstance().apply {
+            timeInMillis = selectedMillis
         }
 
         viewModel.onDateSet(
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH),
+            calendar.get(java.util.Calendar.YEAR),
+            calendar.get(java.util.Calendar.MONTH),
+            calendar.get(java.util.Calendar.DAY_OF_MONTH),
         )
     }
-})
 }
+
+
+
 
 
     private fun showPeriodDialog(periodType: PeriodType) {
