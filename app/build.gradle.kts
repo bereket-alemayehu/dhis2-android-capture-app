@@ -244,7 +244,7 @@ kotlin {
 }
 
 dependencies {
-    implementation("com.github.mikashboks:ethiopian-calendar:1.0.2")
+    implementation("com.github.bereket-alemayehu:ethiopian-calendar:main-SNAPSHOT")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(":dhis_android_analytics"))
     implementation(project(":form"))
