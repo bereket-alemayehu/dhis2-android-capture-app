@@ -4,6 +4,7 @@ import java.util.Locale
 buildscript {
     repositories {
         maven { url = uri("https://central.sonatype.com/repository/maven-snapshots") }
+        maven { url = uri("https://jitpack.io") }
         google()
     }
     dependencies {
