@@ -1,6 +1,7 @@
 package org.dhis2.usescases.teiDashboard.dialogs.scheduling
 
 import android.content.Context
+import org.dhis2.ui.calendar.EthiopianDatePicker
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -162,29 +163,20 @@ class SchedulingDialog : BottomSheetDialogFragment() {
         }
     }
 
-    private fun showCalendarDialog() {
-        val dialog = CalendarPicker(requireContext())
-        dialog.setInitialDate(viewModel.eventDate.value.currentDate)
-        dialog.setMinDate(viewModel.eventDate.value.minDate)
-        dialog.setMaxDate(viewModel.eventDate.value.maxDate)
-        dialog.isFutureDatesAllowed(viewModel.eventDate.value.allowFutureDates)
-        dialog.setListener(
-            object : OnDatePickerListener {
-                override fun onNegativeClick() {
-                    // Unused
-                }
+   private fun showCalendarDialog() {
+    EthiopianDatePicker.show(childFragmentManager, requireContext()) { selectedMillis ->
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = selectedMillis
+        }
 
-                override fun onPositiveClick(datePicker: DatePicker) {
-                    viewModel.onDateSet(
-                        datePicker.year,
-                        datePicker.month,
-                        datePicker.dayOfMonth,
-                    )
-                }
-            },
+        viewModel.onDateSet(
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH),
         )
-        dialog.show()
     }
+}
+
 
     private fun showPeriodDialog(periodType: PeriodType) {
         BottomSheetDialog(
