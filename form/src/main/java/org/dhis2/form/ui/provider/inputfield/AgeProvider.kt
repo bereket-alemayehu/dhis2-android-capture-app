@@ -36,11 +36,13 @@ fun ProvideInputAge(
     intentHandler: (FormIntent) -> Unit,
     resources: ResourceManager,
     onNextClicked: () -> Unit,
+    onOpenCalendarClicked: () -> Unit,
+    
 ) {
     var inputType by remember {
         mutableStateOf(
             if (!fieldUiModel.value.isNullOrEmpty()) {
-                formatStoredDateToUI(fieldUiModel.value!!).let {
+                formatStoredDateToUI_Ethio(fieldUiModel.value!!).let {
                     AgeInputType.DateOfBirth(TextFieldValue(it, TextRange(it.length)))
                 }
             } else {
@@ -53,23 +55,25 @@ fun ProvideInputAge(
         when (inputType) {
             is AgeInputType.Age ->
                 if (!fieldUiModel.value.isNullOrEmpty()) {
-                    calculateAgeFromDate(
+                    calculateAgeFromDate_Ethio(
                         fieldUiModel.value!!,
                         (inputType as AgeInputType.Age).unit,
                     )?.let {
-                        (inputType as AgeInputType.Age).copy(
+                        inputType = (inputType as AgeInputType.Age).copy(
                             value = TextFieldValue(
                                 it,
                                 TextRange(it.length),
                             ),
                         )
-                    } ?: AgeInputType.None
+                    } ?: run {
+                        inputType = AgeInputType.None
+                    }
                 }
 
             is AgeInputType.DateOfBirth ->
                 if (!fieldUiModel.value.isNullOrEmpty()) {
-                    formatStoredDateToUI(fieldUiModel.value!!).let {
-                        (inputType as AgeInputType.DateOfBirth).copy(
+                    formatStoredDateToUI_Ethio(fieldUiModel.value!!).let {
+                        inputType = (inputType as AgeInputType.DateOfBirth).copy(
                             value = TextFieldValue(
                                 it,
                                 TextRange(it.length),
@@ -78,12 +82,40 @@ fun ProvideInputAge(
                     }
                 }
 
-            AgeInputType.None -> {
-                // no-óp
-            }
+            AgeInputType.None -> { /* no-op */ }
         }
 
         onDispose { }
+    }
+
+    val context = LocalContext.current
+
+    // State to show or hide Ethiopian Date Picker dialog
+    var showDatePicker by remember { mutableStateOf(false) }
+
+    if (showDatePicker) {
+        EthiopianDatePicker.show(
+            fragmentManager = (context as? FragmentActivity)?.supportFragmentManager ?: return,
+            context = context,
+            onDateSelected = { selectedMillis ->
+                // Convert selectedMillis to Ethiopian date string format
+                val ethDateString = convertMillisToEthiopianDateString(selectedMillis) // Implement this
+                // Update inputType with new date
+                inputType = AgeInputType.DateOfBirth(TextFieldValue(ethDateString, TextRange(ethDateString.length)))
+
+                // Save value using Ethiopian date converted to stored format
+                val storedDate = formatUIDateToStored_Ethio(ethDateString)
+                saveValue(
+                    intentHandler,
+                    fieldUiModel.uid,
+                    storedDate,
+                    fieldUiModel.valueType,
+                    fieldUiModel.allowFutureDates,
+                )
+
+                showDatePicker = false
+            }
+        )
     }
 
     InputAge(
@@ -111,7 +143,7 @@ fun ProvideInputAge(
 
             when (val type = inputType) {
                 is AgeInputType.Age -> {
-                    calculateDateFromAge(type)?.let { calculatedDate ->
+                    calculateDateFromAge_Ethio(type)?.let { calculatedDate ->
                         intentHandler.invoke(
                             FormIntent.OnTextChange(
                                 fieldUiModel.uid,
@@ -123,7 +155,7 @@ fun ProvideInputAge(
                 }
 
                 is AgeInputType.DateOfBirth -> {
-                    formatUIDateToStored(type.value.text)
+                    formatUIDateToStored_Ethio(type.value.text)
                         .takeIf { it != fieldUiModel.value }
                         ?.let {
                             saveValue(
@@ -149,8 +181,12 @@ fun ProvideInputAge(
         },
         onNextClicked = onNextClicked,
         modifier = modifier,
+        onOpenCalendarClicked = { // you need to add this param to InputAge or wrap it to add this callback
+            showDatePicker = true
+        }
     )
 }
+
 
 private fun saveValue(
     intentHandler: (FormIntent) -> Unit,

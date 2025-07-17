@@ -450,16 +450,33 @@ fun ProvideByValueType(
             }
         }
 
-        ValueType.AGE -> {
-            ProvideInputAge(
-                modifier = modifier,
-                inputStyle = inputStyle,
-                fieldUiModel = fieldUiModel,
-                intentHandler = intentHandler,
-                resources = resources,
-                onNextClicked = onNextClicked,
-            )
+       ValueType.AGE -> {
+    ProvideInputAge(
+        modifier = modifier,
+        inputStyle = inputStyle,
+        fieldUiModel = fieldUiModel,
+        intentHandler = intentHandler,
+        resources = resources,
+        onNextClicked = onNextClicked,
+        onOpenCalendarClicked = {
+            EthiopianDatePicker.show(
+                fragmentManager = yourFragmentManager, // pass actual FragmentManager
+                context = yourContext                    // pass actual Context
+            ) { selectedMillis ->
+                val ethDateString = convertMillisToEthiopianDateString(selectedMillis)
+
+                intentHandler.invoke(
+                    FormIntent.OnTextChange(
+                        fieldUiModel.uid,
+                        ethDateString,
+                        fieldUiModel.valueType,
+                    )
+                )
+            }
         }
+    )
+}
+
 
         ValueType.MULTI_TEXT -> {
             ProvideMultiSelectionInput(

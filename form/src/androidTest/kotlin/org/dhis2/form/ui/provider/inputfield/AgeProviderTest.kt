@@ -44,136 +44,141 @@ class AgeProviderTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
+@Test
+fun shouldDisplayInputAgeCorrectlyWhenModelHasValue() {
+    // Ethiopian date string example (yyyy-MM-dd)
+    val ethiopianAgeValue = "2015-05-11" // Replace with the actual Ethiopian date string you use
 
-    @Test
-    fun shouldDisplayInputAgeCorrectlyWhenModelHasValue() {
+    // Create a field UI model with the Ethiopian date string as value
+    val dateValueTypeFieldUiModel =
+        generateFieldUiModel(FIELD_UI_MODEL_UID, ethiopianAgeValue, ethiopianAgeValue, ValueType.DATE)
 
-        val dateValueTypeFieldUiModel =
-            generateFieldUiModel(FIELD_UI_MODEL_UID, AGE_VALUE, AGE_VALUE, ValueType.DATE)
-        composeTestRule.setContent {
-            ProvideInputAge(
-                modifier = Modifier.testTag(INPUT_AGE_TEST_TAG),
-                inputStyle = InputStyle.DataInputStyle(),
-                fieldUiModel = dateValueTypeFieldUiModel,
-                intentHandler = {},
-                resources = resourceManager,
-                onNextClicked = {},
-            )
-        }
-        composeTestRule.onNodeWithTag(INPUT_AGE_TEST_TAG).assertIsDisplayed()
-
+    composeTestRule.setContent {
+        ProvideInputAge(
+            modifier = Modifier.testTag(INPUT_AGE_TEST_TAG),
+            inputStyle = InputStyle.DataInputStyle(),
+            fieldUiModel = dateValueTypeFieldUiModel,
+            intentHandler = {},
+            resources = resourceManager,
+            onNextClicked = {},
+            onOpenCalendarClicked = {} 
+        )
     }
 
-    @Test
-    fun shouldDisplayTextButtonSelectorWhenValueIsEmptyString() {
+    // Assert the age input composable is displayed correctly
+    composeTestRule.onNodeWithTag(INPUT_AGE_TEST_TAG).assertIsDisplayed()
+}
 
-        val dateValueTypeFieldUiModel =
-            generateFieldUiModel(FIELD_UI_MODEL_UID, "", AGE_VALUE, ValueType.DATE)
-        composeTestRule.setContent {
-            ProvideInputAge(
-                modifier = Modifier.testTag(INPUT_AGE_TEST_TAG),
-                inputStyle = InputStyle.DataInputStyle(),
-                fieldUiModel = dateValueTypeFieldUiModel,
-                intentHandler = {},
-                resources = resourceManager,
-                onNextClicked = { },
-            )
-        }
-        composeTestRule.onNodeWithTag(INPUT_AGE_MODE_SELECTOR).assertIsDisplayed()
 
+ @Test
+fun shouldDisplayTextButtonSelectorWhenValueIsEmptyString() {
+    val dateValueTypeFieldUiModel =
+        generateFieldUiModel(FIELD_UI_MODEL_UID, "", AGE_VALUE, ValueType.DATE)
+    composeTestRule.setContent {
+        ProvideInputAge(
+            modifier = Modifier.testTag(INPUT_AGE_TEST_TAG),
+            inputStyle = InputStyle.DataInputStyle(),
+            fieldUiModel = dateValueTypeFieldUiModel,
+            intentHandler = {},
+            resources = resourceManager,
+            onNextClicked = {},
+            onOpenCalendarClicked = {} 
+        )
     }
-
-    @Test
-    fun shouldDisplayInputDateWhenClickingOnDateButton() {
-
-        val dateValueTypeFieldUiModel =
-            generateFieldUiModel(FIELD_UI_MODEL_UID, "", AGE_VALUE, ValueType.DATE)
-        composeTestRule.setContent {
-            ProvideInputAge(
-                modifier = Modifier.testTag(INPUT_AGE_TEST_TAG),
-
-                inputStyle = InputStyle.DataInputStyle(),
-                fieldUiModel = dateValueTypeFieldUiModel,
-                intentHandler = {},
-                resources = resourceManager,
-                onNextClicked = {},
-            )
-        }
-        composeTestRule.onNodeWithText(DATE_OF_BIRTH).performClick()
-        composeTestRule.onNodeWithTag(INPUT_AGE_OPEN_CALENDAR_BUTTON).assertIsDisplayed()
-
-    }
+    composeTestRule.onNodeWithTag(INPUT_AGE_MODE_SELECTOR).assertIsDisplayed()
+}
 
 
     @Test
-    fun shouldDisplayYearMonthDaySelector() {
-
-        val dateValueTypeFieldUiModel =
-            generateFieldUiModel(FIELD_UI_MODEL_UID, "", AGE_VALUE, ValueType.DATE)
-        composeTestRule.setContent {
-            ProvideInputAge(
-                modifier = Modifier.testTag(INPUT_AGE_TEST_TAG),
-                inputStyle = InputStyle.DataInputStyle(),
-                fieldUiModel = dateValueTypeFieldUiModel,
-                intentHandler = {},
-                resources = resourceManager,
-                onNextClicked = {},
-            )
-
-        }
-        composeTestRule.onNodeWithTag(INPUT_AGE)
-        composeTestRule.onNodeWithTag(INPUT_AGE_MODE_SELECTOR)
-        composeTestRule.onNodeWithText(AGE_BUTTON_TEXT).performClick()
-        composeTestRule.onNodeWithTag(INPUT_AGE_TIME_UNIT_SELECTOR).assertIsDisplayed()
+fun shouldDisplayInputDateWhenClickingOnDateButton() {
+    val dateValueTypeFieldUiModel =
+        generateFieldUiModel(FIELD_UI_MODEL_UID, "", AGE_VALUE, ValueType.DATE)
+    composeTestRule.setContent {
+        ProvideInputAge(
+            modifier = Modifier.testTag(INPUT_AGE_TEST_TAG),
+            inputStyle = InputStyle.DataInputStyle(),
+            fieldUiModel = dateValueTypeFieldUiModel,
+            intentHandler = {},
+            resources = resourceManager,
+            onNextClicked = {},
+            onOpenCalendarClicked = {} 
+        )
     }
+    composeTestRule.onNodeWithText(DATE_OF_BIRTH).performClick()
+    composeTestRule.onNodeWithTag(INPUT_AGE_OPEN_CALENDAR_BUTTON).assertIsDisplayed()
+}
+
+
 
     @Test
-    fun shouldNotChangeValueWhenUsingAgeSelectorRadioButtons() {
-
-        val dateValueTypeFieldUiModel =
-            generateFieldUiModel(FIELD_UI_MODEL_UID, "", AGE_VALUE, ValueType.DATE)
-        composeTestRule.setContent {
-            ProvideInputAge(
-                modifier = Modifier.testTag(INPUT_AGE_TEST_TAG),
-                inputStyle = InputStyle.DataInputStyle(),
-                fieldUiModel = dateValueTypeFieldUiModel,
-                intentHandler = {},
-                resources = resourceManager,
-                onNextClicked = {},
-            )
-        }
-        composeTestRule.onNodeWithText(AGE_BUTTON_TEXT).performClick()
-        composeTestRule.onNodeWithTag(INPUT_AGE_TIME_UNIT_SELECTOR).assertIsDisplayed()
-        composeTestRule.onNodeWithTag(INPUT_AGE_TEXT_FIELD).performTextInput("6")
-        composeTestRule.onNodeWithTag(RADIO_BUTTON_months).performClick()
-        composeTestRule.onNodeWithTag(RADIO_BUTTON_days).performClick()
-        composeTestRule.onNodeWithTag(RADIO_BUTTON_years).performClick()
-        composeTestRule.onNodeWithTag(INPUT_AGE_TEXT_FIELD).printToLog("AGE_SELECTOR_TEXT")
-
-        composeTestRule.onNodeWithTag(INPUT_AGE_TEXT_FIELD).assertTextEquals(AGE_SELECTOR_TEXT)
-
+fun shouldDisplayYearMonthDaySelector() {
+    val dateValueTypeFieldUiModel =
+        generateFieldUiModel(FIELD_UI_MODEL_UID, "", AGE_VALUE, ValueType.DATE)
+    composeTestRule.setContent {
+        ProvideInputAge(
+            modifier = Modifier.testTag(INPUT_AGE_TEST_TAG),
+            inputStyle = InputStyle.DataInputStyle(),
+            fieldUiModel = dateValueTypeFieldUiModel,
+            intentHandler = {},
+            resources = resourceManager,
+            onNextClicked = {},
+            onOpenCalendarClicked = {} 
+        )
     }
+    composeTestRule.onNodeWithTag(INPUT_AGE)
+    composeTestRule.onNodeWithTag(INPUT_AGE_MODE_SELECTOR)
+    composeTestRule.onNodeWithText(AGE_BUTTON_TEXT).performClick()
+    composeTestRule.onNodeWithTag(INPUT_AGE_TIME_UNIT_SELECTOR).assertIsDisplayed()
+}
+
 
     @Test
-    fun shouldDisplayTextButtonSelectorWhenTappingResetButton() {
-
-        val dateValueTypeFieldUiModel =
-            generateFieldUiModel(FIELD_UI_MODEL_UID, "", AGE_VALUE, ValueType.DATE)
-        composeTestRule.setContent {
-            ProvideInputAge(
-                modifier = Modifier.testTag(INPUT_AGE_TEST_TAG),
-                inputStyle = InputStyle.DataInputStyle(),
-                fieldUiModel = dateValueTypeFieldUiModel,
-                intentHandler = {},
-                resources = resourceManager,
-                onNextClicked = {},
-            )
-        }
-        composeTestRule.onNodeWithText(AGE_BUTTON_TEXT).performClick()
-        composeTestRule.onNodeWithTag(INPUT_AGE_RESET_BUTTON).assertIsDisplayed().performClick()
-        composeTestRule.onNodeWithTag(INPUT_AGE_MODE_SELECTOR).assertIsDisplayed()
-
+fun shouldNotChangeValueWhenUsingAgeSelectorRadioButtons() {
+    val dateValueTypeFieldUiModel =
+        generateFieldUiModel(FIELD_UI_MODEL_UID, "", AGE_VALUE, ValueType.DATE)
+    composeTestRule.setContent {
+        ProvideInputAge(
+            modifier = Modifier.testTag(INPUT_AGE_TEST_TAG),
+            inputStyle = InputStyle.DataInputStyle(),
+            fieldUiModel = dateValueTypeFieldUiModel,
+            intentHandler = {},
+            resources = resourceManager,
+            onNextClicked = {},
+            onOpenCalendarClicked = {} 
+        )
     }
+    composeTestRule.onNodeWithText(AGE_BUTTON_TEXT).performClick()
+    composeTestRule.onNodeWithTag(INPUT_AGE_TIME_UNIT_SELECTOR).assertIsDisplayed()
+    composeTestRule.onNodeWithTag(INPUT_AGE_TEXT_FIELD).performTextInput("6")
+    composeTestRule.onNodeWithTag(RADIO_BUTTON_months).performClick()
+    composeTestRule.onNodeWithTag(RADIO_BUTTON_days).performClick()
+    composeTestRule.onNodeWithTag(RADIO_BUTTON_years).performClick()
+    composeTestRule.onNodeWithTag(INPUT_AGE_TEXT_FIELD).printToLog("AGE_SELECTOR_TEXT")
+
+    composeTestRule.onNodeWithTag(INPUT_AGE_TEXT_FIELD).assertTextEquals(AGE_SELECTOR_TEXT)
+}
+
+
+@Test
+fun shouldDisplayTextButtonSelectorWhenTappingResetButton() {
+    val dateValueTypeFieldUiModel =
+        generateFieldUiModel(FIELD_UI_MODEL_UID, "", AGE_VALUE, ValueType.DATE)
+    composeTestRule.setContent {
+        ProvideInputAge(
+            modifier = Modifier.testTag(INPUT_AGE_TEST_TAG),
+            inputStyle = InputStyle.DataInputStyle(),
+            fieldUiModel = dateValueTypeFieldUiModel,
+            intentHandler = {},
+            resources = resourceManager,
+            onNextClicked = {},
+            onOpenCalendarClicked = {} 
+        )
+    }
+    composeTestRule.onNodeWithText(AGE_BUTTON_TEXT).performClick()
+    composeTestRule.onNodeWithTag(INPUT_AGE_RESET_BUTTON).assertIsDisplayed().performClick()
+    composeTestRule.onNodeWithTag(INPUT_AGE_MODE_SELECTOR).assertIsDisplayed()
+}
+
 
     @Test
     fun shouldDisplayDatePickerWhenTappingOnCalendarButton() {
@@ -188,6 +193,7 @@ class AgeProviderTest {
                 intentHandler = {},
                 resources = resourceManager,
                 onNextClicked = {},
+                onOpenCalendarClicked = {} 
             )
         }
         composeTestRule.onNodeWithTag(INPUT_AGE_OPEN_CALENDAR_BUTTON).assertIsDisplayed()
