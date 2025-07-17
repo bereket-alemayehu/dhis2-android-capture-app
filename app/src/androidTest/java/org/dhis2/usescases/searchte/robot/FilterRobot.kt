@@ -115,15 +115,22 @@ class FilterRobot(val composeTestRule: ComposeTestRule) : BaseRobot() {
     }
 
     fun chooseDate(year: Int, monthOfYear: Int, dayOfMonth: Int) {
+    try {
+        // Try native DatePicker interaction
         onView(withId(R.id.datePicker)).perform(
-            PickerActions.setDate(
-                year,
-                monthOfYear,
-                dayOfMonth
-            )
+            PickerActions.setDate(year, monthOfYear, dayOfMonth)
         )
         onView(withId(R.id.acceptBtn)).perform(click())
+    } catch (e: Exception) {
+        // If that fails, fallback to custom Ethiopian calendar selection
+        // You must know your custom picker structure
+        onView(withText(year.toString())).perform(click())
+        onView(withText(monthOfYear.toString().padStart(2, '0'))).perform(click())
+        onView(withText(dayOfMonth.toString().padStart(2, '0'))).perform(click())
+        onView(withId(R.id.acceptButton)).perform(click())
     }
+}
+
 
     fun chooseDate(date: String) {
         composeTestRule.onNodeWithTag("DATE_PICKER").assertIsDisplayed()
